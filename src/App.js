@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import Tippy from "@tippyjs/react";
+import "./App.css";
+import React, { forwardRef } from "react";
+import "tippy.js/dist/tippy.css";
 
+const ColoredTooltip = () => {
+  return <span style={{ color: "yellow" }}>Colored component</span>;
+};
+const CustomChild = forwardRef((props, ref) => {
+  return (
+    <div ref={ref}>
+      <div>First Line</div>
+      <div>Second Line</div>
+    </div>
+  );
+});
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div style={{ paddingBottom: "20px" }}>
+        <Tippy
+          placement="right"
+          arrow={false}
+          delay={1000}
+          content="Basic Tooltip"
         >
-          Learn React
-        </a>
-      </header>
+          <button>Hover</button>
+        </Tippy>
+      </div>
+
+      <div style={{ paddingBottom: "20px" }}>
+        <Tippy content={<span style={{ color: "orange" }}>Colored</span>}>
+          <button>Hover</button>
+        </Tippy>
+      </div>
+
+      <div style={{ paddingBottom: "20px" }}>
+        <Tippy content={<ColoredTooltip></ColoredTooltip>}>
+          <button>Hover</button>
+        </Tippy>
+      </div>
+
+      <div style={{ paddingBottom: "20px" }}>
+        <Tippy content={<ColoredTooltip></ColoredTooltip>}>
+          <CustomChild></CustomChild>
+        </Tippy>
+      </div>
     </div>
   );
 }
